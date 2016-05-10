@@ -8,15 +8,25 @@
 <style>
 #map{
   width: 100%;
-  height: 400px;
+  height: 650px;
 }
 </style>
 <script>
+var osmtile = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{maxZoom:22});
+var uavimagery = L.tileLayer('https://kathmandulivinglabs.github.io/PokharaAdminBuilding/{z}/{x}/{y}.png',{"tms":true, maxZoom:22});
+//var tileswitch = L.layerGroup([osmtile, uavimagery]);
 var map = L.map('map', {
     center: [28.2554328,83.9769318],
-    zoom: 16
+    zoom: 16,
+    layers : [osmtile, uavimagery]
 });
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{maxZoom:22}).addTo(map);
-L.tileLayer('https://kathmandulivinglabs.github.io/PokharaAdminBuilding/{z}/{x}/{y}.png',{"tms":true, maxZoom:22}).addTo(map);
+var baseMaps = {
+    "OSM": osmtile
+  };
+
+var overlayMaps = {
+    "UAV Imagery": uavimagery
+};
+L.control.layers(baseMaps, overlayMaps).addTo(map);
 </script>
 </body>
